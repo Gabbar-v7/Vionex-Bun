@@ -1,4 +1,4 @@
-import z from "zod";
+import z, { string } from "zod";
 
 export const Environment = {
     get NEXT_PUBLIC_APP_URI() {
@@ -21,5 +21,24 @@ export const Environment = {
     },
     get MONGO_URI() {
         return z.url().parse(process.env.MONGO_URI);
+    },
+
+    get SMTP_HOST() {
+        return z.string().parse(process.env.SMTP_HOST)
+    },
+    get SMTP_PORT() {
+        return z.coerce.number().parse(process.env.SMTP_PORT);
+    },
+    get SMTP_SECURE() {
+        return z.string().transform((val) => val.toUpperCase() === 'TRUE').parse(process.env.SMTP_SECURE);
+    },
+    get SMTP_USER() {
+        return z.string().parse(process.env.SMTP_USER);
+    },
+    get SMTP_PASS() {
+        return z.string().parse(process.env.SMTP_PASS);
+    },
+    get SMTP_FROM() {
+        return z.string().parse(process.env.SMTP_FROM);
     }
 } as const
