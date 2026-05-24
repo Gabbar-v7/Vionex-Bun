@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/sheet";
 import { Menu, Zap } from "lucide-react";
 import Link from "next/link";
+import { Logo } from "../logo";
 
 export default function Navbar() {
     const [sheetOpen, setSheetOpen] = useState(false);
@@ -21,12 +22,7 @@ export default function Navbar() {
             <div className="mx-auto flex h-14 max-w-7xl items-center justify-between px-4 md:px-6">
 
                 {/* Logo */}
-                <Link href="/" className="flex items-center gap-2 shrink-0">
-                    <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-primary-foreground shadow-sm">
-                        <Zap className="h-4 w-4" />
-                    </div>
-                    <span className="text-base font-semibold tracking-tight">Vionex</span>
-                </Link>
+                <Logo />
 
                 {/* Desktop Actions */}
                 <div className="hidden md:flex items-center gap-2">
