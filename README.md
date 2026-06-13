@@ -1,4 +1,4 @@
-# vionex-nextjs
+# vionex-bun
 
 To install dependencies:
 

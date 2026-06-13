@@ -1,5 +1,5 @@
 {
-  "name": "vionex-nextjs",
+  "name": "vionex-bun",
   "module": "index.ts",
   "type": "module",
   "private": true,
