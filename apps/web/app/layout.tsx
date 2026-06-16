@@ -5,7 +5,7 @@ import { appFontClasses } from "./fonts";
 
 export const metadata: Metadata = {
   title: "Vionex",
-  description: "NextJS Template with Database, Authentication & More",
+  description: "",
 };
 
 export default function RootLayout({

@@ -12,3 +12,6 @@ clean:
     find . -name "bun.lock" -type f -prune -exec rm -f {} +
 
 clean-install: clean install
+
+frozen-install: clean
+    bun ci
