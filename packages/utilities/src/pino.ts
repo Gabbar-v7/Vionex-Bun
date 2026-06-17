@@ -9,11 +9,4 @@ export enum LoggerLevel {
     trace = "trace",
 }
 
-export const appLogger = pino({
-    transport: {
-        target: 'pino-pretty',
-        options: {
-            // Refer: https://github.com/pinojs/pino-pretty?tab=readme-ov-file#options
-        }
-    }
-});
+export const appLogger = pino();

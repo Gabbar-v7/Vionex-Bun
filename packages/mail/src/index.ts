@@ -1,13 +1,13 @@
-import { appLogger, Environment } from "@packages/utilities"
+import { appLogger, appEnv } from "@packages/utilities"
 import { createTransport } from "nodemailer"
 
 export const mailTransporter = createTransport({
-    host: Environment.SMTP_HOST,
-    port: Environment.SMTP_PORT,
-    secure: Environment.SMTP_SECURE, // use STARTTLS (upgrade connection to TLS after connecting)
+    host: appEnv.SMTP_HOST,
+    port: appEnv.SMTP_PORT,
+    secure: appEnv.SMTP_SECURE, // use STARTTLS (upgrade connection to TLS after connecting)
     auth: {
-        user: Environment.SMTP_USER,
-        pass: Environment.SMTP_PASS,
+        user: appEnv.SMTP_USER,
+        pass: appEnv.SMTP_PASS,
     },
 });
 

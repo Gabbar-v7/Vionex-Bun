@@ -1,7 +1,7 @@
 import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { account, postgresClient, session, user, verification } from "@packages/db";
-import { Environment } from "@packages/utilities";
+import { appEnv } from "@packages/utilities";
 
 export const authSchema = {
     user: user,
@@ -12,8 +12,8 @@ export const authSchema = {
 
 
 export const auth = betterAuth({
-    baseURL: Environment.NEXT_PUBLIC_APP_URI,
-    secret: Environment.AUTH_SECRET,
+    baseURL: appEnv.NEXT_PUBLIC_APP_URI,
+    secret: appEnv.AUTH_SECRET,
 
     database: drizzleAdapter(postgresClient, {
         provider: "pg",
@@ -44,8 +44,8 @@ export const auth = betterAuth({
         google: {
             enabled: true,
             prompt: "select_account",
-            clientId: Environment.GOOGLE_CLIENT_ID,
-            clientSecret: Environment.GOOGLE_CLIENT_SECRET,
+            clientId: appEnv.GOOGLE_CLIENT_ID,
+            clientSecret: appEnv.GOOGLE_CLIENT_SECRET,
         },
     },
     session: {

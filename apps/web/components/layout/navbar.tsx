@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/sheet";
 import { Menu, Zap } from "lucide-react";
 import Link from "next/link";
-import { Logo } from "../logo";
+import Logo from "../logo";
 
 export default function Navbar() {
     const [sheetOpen, setSheetOpen] = useState(false);

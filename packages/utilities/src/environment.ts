@@ -1,6 +1,6 @@
-import z, { string } from "zod";
+import z from "zod";
 
-export const Environment = {
+export const appEnv = {
     get NEXT_PUBLIC_APP_URI() {
         return z.url().parse(process.env.NEXT_PUBLIC_APP_URI)
     },

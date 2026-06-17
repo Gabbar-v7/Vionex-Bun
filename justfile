@@ -1,8 +1,8 @@
 set dotenv-required
 set quiet
 
-run script:
-    bun run {{script}}
+run-dev script:
+    bun run {{script}} | pino-pretty
 
 install:
     bun install

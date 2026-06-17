@@ -1,4 +1,4 @@
-import { Environment } from "@packages/utilities"
+import { appEnv } from "@packages/utilities"
 import { defineConfig } from 'drizzle-kit';
 
 export default defineConfig({
@@ -6,6 +6,6 @@ export default defineConfig({
     schema: './src/pg/schema',
     dialect: 'postgresql',
     dbCredentials: {
-        url: Environment.POSTGRESQL_URI,
+        url: appEnv.POSTGRESQL_URI,
     },
 });

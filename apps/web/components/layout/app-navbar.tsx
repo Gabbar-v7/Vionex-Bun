@@ -22,7 +22,7 @@ import {
     Menu,
 } from "lucide-react";
 import Link from "next/link";
-import { Logo } from "../logo";
+import Logo from "../logo";
 
 type AppNavbarProps = {
     user: {

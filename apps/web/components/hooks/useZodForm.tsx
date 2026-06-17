@@ -15,19 +15,11 @@ type UseZodFormOptions<T extends z.ZodObject> = {
     successToast?: string;
 };
 
-type FormFields<T extends z.ZodObject> = {
-    [K in keyof z.output<T>]: {
-        label: { htmlFor: K };
-        input: { id: K; name: K };
-    };
-};
-
 /** Field-level errors keyed by field name. `global` and `auth` are reserved for non-field errors. */
 type FieldErrors<T extends z.ZodObject> = Partial<Record<"global" | "auth" | keyof z.output<T>, string>>;
 
 type UseZodFormReturn<T extends z.ZodObject> = {
     isSubmitting: boolean;
-    formFields: FormFields<T>;
     fieldErrors: FieldErrors<T>;
     /** Pass directly to a `<form>` element's `onSubmit` prop. */
     handleSubmit: (event: React.SubmitEvent<HTMLFormElement>) => Promise<void>;
@@ -45,22 +37,13 @@ type UseZodFormReturn<T extends z.ZodObject> = {
  *   },
  * });
  */
-export function useZodForm<T extends z.ZodObject>({
+export default function useZodForm<T extends z.ZodObject>({
     schema,
     onSubmit,
     successToast,
 }: UseZodFormOptions<T>): UseZodFormReturn<T> {
     const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
     const [fieldErrors, setFieldErrors] = useState<FieldErrors<T>>({});
-
-    const formFields = Object.keys(schema.shape).reduce((acc, key) => {
-        const k = key as keyof z.output<T>;
-        acc[k] = {
-            label: { htmlFor: k },
-            input: { id: k, name: k },
-        };
-        return acc;
-    }, {} as FormFields<T>);
 
     const handleSubmit = async (
         event: React.SubmitEvent<HTMLFormElement>
@@ -95,5 +78,5 @@ export function useZodForm<T extends z.ZodObject>({
         }
     };
 
-    return { isSubmitting, formFields, fieldErrors, handleSubmit };
+    return { isSubmitting, fieldErrors, handleSubmit };
 }
