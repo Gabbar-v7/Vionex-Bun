@@ -23,6 +23,22 @@ export const appEnv = {
         return z.url().parse(process.env.MONGO_URI);
     },
 
+    get S3_ACCESS_KEY_ID() {
+        return z.string().parse(process.env.S3_ACCESS_KEY_ID)
+    },
+    get S3_SECRET_ACCESS_KEY() {
+        return z.string().parse(process.env.S3_SECRET_ACCESS_KEY)
+    },
+    get S3_REGION() {
+        return z.string().parse(process.env.S3_REGION)
+    },
+    get S3_ENDPOINT() {
+        return z.string().parse(process.env.S3_ENDPOINT)
+    },
+    get S3_BUCKET() {
+        return z.string().parse(process.env.S3_BUCKET)
+    },
+
     get SMTP_HOST() {
         return z.string().parse(process.env.SMTP_HOST)
     },
