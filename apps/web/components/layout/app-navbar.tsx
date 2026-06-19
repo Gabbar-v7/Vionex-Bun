@@ -23,13 +23,10 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import Logo from "../logo";
+import { authClient } from "@packages/auth/client";
+import { Skeleton } from "../ui/skeleton";
 
 type AppNavbarProps = {
-    user: {
-        name: string,
-        email: string,
-        image: string,
-    },
     navItems: {
         label: string,
         href: string,
@@ -38,7 +35,8 @@ type AppNavbarProps = {
 }
 
 
-export default function AppNavbar({ user, navItems }: AppNavbarProps) {
+export default function AppNavbar({ navItems }: AppNavbarProps) {
+    const { data, isPending } = authClient.useSession();
     const [sheetOpen, setSheetOpen] = useState(false);
 
     const handleSignOut = async () => {
@@ -181,19 +179,43 @@ export default function AppNavbar({ user, navItems }: AppNavbarProps) {
 
                             {/* User footer */}
                             <div className="border-t px-4 py-4">
-                                <div className="flex items-center gap-3">
-                                    <Avatar className="h-9 w-9">
-                                        <AvatarImage src={user.image} />
-                                        <AvatarFallback>{">."}</AvatarFallback>
-                                    </Avatar>
-                                    <div className="flex-1 min-w-0">
-                                        <p className="text-sm font-semibold truncate">{user.name}</p>
-                                        <p className="text-xs text-muted-foreground truncate">{user.email}</p>
+                                {isPending ? (
+                                    <div className="flex items-center gap-3">
+                                        <Skeleton className="h-9 w-9 rounded-full" />
+
+                                        <div className="flex-1 space-y-2">
+                                            <Skeleton className="h-4 w-24" />
+                                            <Skeleton className="h-3 w-36" />
+                                        </div>
+
+                                        <Skeleton className="h-8 w-8 rounded-md" />
                                     </div>
-                                    <Button onClick={handleSignOut} variant="ghost" size="icon" className="h-8 w-8 shrink-0 text-muted-foreground">
-                                        <LogOut className="h-4 w-4" />
-                                    </Button>
-                                </div>
+                                ) : (
+                                    <div className="flex items-center gap-3">
+                                        <Avatar className="h-9 w-9">
+                                            <AvatarImage src={data?.user.image ?? undefined} />
+                                            <AvatarFallback className="text-accent-foreground font-bold">{"> ."}</AvatarFallback>
+                                        </Avatar>
+
+                                        <div className="flex-1 min-w-0">
+                                            <p className="text-sm font-semibold truncate">
+                                                {data?.user.name}
+                                            </p>
+                                            <p className="text-xs text-muted-foreground truncate">
+                                                {data?.user.email}
+                                            </p>
+                                        </div>
+
+                                        <Button
+                                            onClick={handleSignOut}
+                                            variant="ghost"
+                                            size="icon"
+                                            className="h-8 w-8 shrink-0 text-muted-foreground"
+                                        >
+                                            <LogOut className="h-4 w-4" />
+                                        </Button>
+                                    </div>
+                                )}
                             </div>
                         </SheetContent>
                     </Sheet>

@@ -27,14 +27,14 @@ export default function Navbar() {
                 {/* Desktop Actions */}
                 <div className="hidden md:flex items-center gap-2">
                     <Button variant="ghost" className="font-medium" asChild>
-                        <a href="/login">
+                        <Link href="/login">
                             Login
-                        </a>
+                        </Link>
                     </Button>
                     <Button className="font-medium" asChild>
-                        <a href="/signup">
+                        <Link href="/signup">
                             Sign Up
-                        </a>
+                        </Link>
                     </Button>
                 </div>
 
@@ -79,18 +79,18 @@ export default function Navbar() {
                                 onClick={() => setSheetOpen(false)}
                                 asChild
                             >
-                                <a href="/login">
+                                <Link href="/login">
                                     Login
-                                </a>
+                                </Link>
                             </Button>
                             <Button
                                 className="flex-1"
                                 onClick={() => setSheetOpen(false)}
                                 asChild
                             >
-                                <a href="/signup">
+                                <Link href="/signup">
                                     Sign Up
-                                </a>
+                                </Link>
                             </Button>
                         </div>
                     </SheetContent>

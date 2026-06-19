@@ -56,12 +56,13 @@ export default function useZodForm<T extends z.ZodObject>({
             const rawFormData = Object.fromEntries(new FormData(event.currentTarget));
             const parsedData = schema.parse(rawFormData);
 
-            if (onSubmit) await onSubmit(parsedData, setFieldErrors);
+            await onSubmit(parsedData, setFieldErrors);
 
             if (successToast) {
                 console.log(successToast);
             }
         } catch (error) {
+            console.error(error)
             if (error instanceof z.ZodError) {
                 const zodErrors = ZodErrorUtils.zodErrorsToRecord(error) as typeof fieldErrors;
                 setFieldErrors(zodErrors);

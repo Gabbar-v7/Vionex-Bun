@@ -1,15 +1,19 @@
 set dotenv-required
 set quiet
 
-run-dev script:
-    bun run {{script}} | pino-pretty
+default:
+    just --list
+
+[arg("dev", long="dev", value="true")]
+run script dev="false":
+    if [ {{dev}} == "true" ]; then bun run {{script}} | pino-pretty; else bun run {{script}}; fi
 
 install:
     bun install
 
 clean:
-    find . -name "node_modules" -type d -prune -exec rm -rf {} +
-    find . -name "bun.lock" -type f -prune -exec rm -f {} +
+    find . -type d -name node_modules -prune -exec rm -rf {} +
+    find . -type f -name bun.lock -delete
 
 clean-install: clean install
 

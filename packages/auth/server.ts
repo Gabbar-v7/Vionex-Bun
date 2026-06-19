@@ -26,6 +26,7 @@ export const auth = betterAuth({
         revokeSessionsOnPasswordReset: true,
         sendResetPassword: async ({ user, url, token }, request) => {
             //  TODO: 
+            console.log(url)
         },
         onExistingUserSignUp: async ({ user }, request) => {
             //    TODO:
@@ -34,7 +35,7 @@ export const auth = betterAuth({
     emailVerification: {
         sendOnSignUp: true,
         sendOnSignIn: true,
-        autoSignInAfterVerification: true,
+        autoSignInAfterVerification: false,
         expiresIn: 3600, // 1 hour
         sendVerificationEmail: async ({ user, url, token }) => {
             //    TODO:

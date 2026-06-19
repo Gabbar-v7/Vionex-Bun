@@ -9,29 +9,19 @@ import {
     CardTitle,
     CardDescription,
 } from "@/components/ui/card";
-import { FieldError, FieldLabel } from "../ui/field";
+import { Field, FieldError, FieldLabel } from "../ui/field";
 import { Facebook, GitHub, Google } from "../icons";
 import useZodForm from "../hooks/useZodForm";
 import { zAuthSchemas } from "@packages/utilities";
-
-const providers = [
-    {
-        name: "Google",
-        icon: "/icons/google.svg",
-    },
-    {
-        name: "Facebook",
-        icon: "/icons/facebook.svg",
-    },
-    {
-        name: "GitHub",
-        icon: "/icons/github.svg",
-    },
-    // Add more providers here
-];
+import { authClient } from "@packages/auth/client";
 
 export default function LoginForm() {
-    const { isSubmitting, fieldErrors, handleSubmit } = useZodForm({ schema: zAuthSchemas.signIn, onSubmit: async () => { } });
+    const { isSubmitting, fieldErrors, handleSubmit } = useZodForm({
+        schema: zAuthSchemas.signIn, onSubmit: async (data) => {
+            console.log(data)
+            await authClient.signIn.email({ ...data, callbackURL: "/u/home" });
+        }
+    });
 
     return (
         <Card className="w-full max-w-md border-border">
@@ -69,20 +59,19 @@ export default function LoginForm() {
                     <FieldError children={fieldErrors.password} />
 
                     <div className="flex flex-wrap items-center justify-between gap-2">
-                        <FieldLabel className="flex items-center gap-2">
-                            <Checkbox id="remember" />
-                            <span className="text-sm text-muted-foreground">
+                        <Field className="w-fit" orientation="horizontal">
+                            <Checkbox id="rememberMe" name="rememberMe" />
+                            <FieldLabel htmlFor="rememberMe" className="text-sm text-muted-foreground">
                                 Remember me
-                            </span>
-                        </FieldLabel>
+                            </FieldLabel>
+                        </Field>
 
-                        <Button
-                            variant="link"
-                            type="button"
-                            className="h-auto p-0 text-sm"
+                        <Link
+                            href="/forgot-password"
+                            className="h-auto p-0 text-sm hover:underline"
                         >
                             Forgot password?
-                        </Button>
+                        </Link>
                     </div>
 
                     <Button className="w-full" type="submit" disabled={isSubmitting}>

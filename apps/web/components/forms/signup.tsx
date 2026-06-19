@@ -5,9 +5,18 @@ import { Input } from "../ui/input";
 import { FieldError, FieldLabel } from "../ui/field";
 import { Button } from "../ui/button";
 import Link from "next/link";
+import { authClient } from "@packages/auth/client";
+import { useRouter } from "next/navigation";
 
 export default function SignUpForm() {
-    const { isSubmitting, fieldErrors, handleSubmit } = useZodForm({ schema: zAuthSchemas.signUp, onSubmit: async () => { } })
+    const router = useRouter()
+
+    const { isSubmitting, fieldErrors, handleSubmit } = useZodForm({
+        schema: zAuthSchemas.signUp, onSubmit: async (data) => {
+            await authClient.signUp.email({ ...data, callbackURL: "/u/home" }, { onSuccess: () => router.push("/u/home") })
+        }
+    })
+
     return (
         <Card className="w-full max-w-md border-border">
             <CardHeader className="space-y-2 text-center">
