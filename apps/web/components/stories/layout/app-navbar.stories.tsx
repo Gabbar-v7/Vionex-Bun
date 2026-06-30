@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/nextjs-vite";
-import AppNavbar from "../layout/app-navbar";
+import AppNavbar from "../../layout/app-navbar";
 import { Bookmark, Home, Search, } from "lucide-react";
 
 const meta = {
