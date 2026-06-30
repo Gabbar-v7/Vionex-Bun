@@ -7,6 +7,7 @@ import { Button } from "../ui/button";
 import Link from "next/link";
 import { authClient } from "@packages/auth/client";
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 export default function SignUpForm() {
     const router = useRouter()
@@ -16,6 +17,10 @@ export default function SignUpForm() {
             await authClient.signUp.email({ ...data, callbackURL: "/u/home" }, { onSuccess: () => router.push("/u/home") })
         }
     })
+
+    const { data, isPending } = authClient.useSession()
+
+    useEffect(() => { if (!isPending && data?.session) router.push("/u/home") }, [isPending, data, router])
 
     return (
         <Card className="w-full max-w-md border-border">
@@ -29,7 +34,7 @@ export default function SignUpForm() {
             </CardHeader>
 
             <CardContent className="space-y-6">
-                <FieldError children={fieldErrors.global || fieldErrors.auth} />
+                <FieldError>{fieldErrors.global || fieldErrors.auth}</FieldError>
 
                 <form onSubmit={handleSubmit} className="space-y-4">
 
@@ -40,7 +45,7 @@ export default function SignUpForm() {
                         placeholder="Name"
                         autoComplete="name"
                     />
-                    <FieldError children={fieldErrors.name} />
+                    <FieldError>{fieldErrors.name}</FieldError>
 
                     <FieldLabel htmlFor="email"> Email </FieldLabel>
                     <Input
@@ -50,7 +55,7 @@ export default function SignUpForm() {
                         placeholder="Email"
                         autoComplete="email"
                     />
-                    <FieldError children={fieldErrors.email} />
+                    <FieldError>{fieldErrors.email}</FieldError>
 
                     <FieldLabel htmlFor="password">Password</FieldLabel>
                     <Input
@@ -59,7 +64,7 @@ export default function SignUpForm() {
                         type="password"
                         placeholder="Password"
                     />
-                    <FieldError children={fieldErrors.password} />
+                    <FieldError>{fieldErrors.password}</FieldError>
 
                     <FieldLabel htmlFor="confirmPassword">Confirm Password</FieldLabel>
                     <Input
@@ -68,7 +73,7 @@ export default function SignUpForm() {
                         type="password"
                         placeholder="Confirm Password"
                     />
-                    <FieldError children={fieldErrors.confirmPassword} />
+                    <FieldError>{fieldErrors.confirmPassword}</FieldError>
 
                     <Button className="w-full" type="submit" disabled={isSubmitting}>
                         {isSubmitting ? "Signing Up..." : "Sign up"}

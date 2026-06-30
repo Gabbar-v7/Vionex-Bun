@@ -24,12 +24,12 @@ export default function ForgotPasswordForm() {
             </CardTitle>
 
             <CardDescription>
-                Enter your email address and we'll send you a link to reset your password
+                Enter your email address and we&apos;ll send you a link to reset your password
             </CardDescription>
         </CardHeader>
 
         <CardContent className="space-y-6">
-            <FieldError children={fieldErrors.global || fieldErrors.auth} />
+            <FieldError>{fieldErrors.global || fieldErrors.auth}</FieldError>
 
             <form onSubmit={handleSubmit} className="space-y-4">
 
@@ -40,7 +40,7 @@ export default function ForgotPasswordForm() {
                     placeholder="Email"
                     autoComplete="email"
                 />
-                <FieldError children={fieldErrors.email} />
+                <FieldError>{fieldErrors.email}</FieldError>
 
                 <Button className="w-full" type="submit" disabled={isSubmitting}>
                     {isSubmitting ? "Sending Reset Link..." : "Send Reset Link"}

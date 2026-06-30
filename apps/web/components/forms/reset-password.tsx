@@ -12,9 +12,11 @@ import { authClient } from "@packages/auth/client";
 import { useSearchParams } from "next/navigation";
 
 export default function ResetPasswordForm() {
+    const searchParams = useSearchParams()
+
     const { isSubmitting, fieldErrors, handleSubmit } = useZodForm({
         schema: zAuthSchemas.resetPassword, onSubmit: async (data) => {
-            const token = useSearchParams().get("token") ?? undefined
+            const token = searchParams.get("token") ?? undefined
             await authClient.resetPassword({ ...data, token })
         }
     })
@@ -32,7 +34,7 @@ export default function ResetPasswordForm() {
             </CardHeader>
 
             <CardContent className="space-y-6">
-                <FieldError children={fieldErrors.global || fieldErrors.auth} />
+                <FieldError>{fieldErrors.global || fieldErrors.auth}</FieldError>
 
                 <form onSubmit={handleSubmit} className="space-y-4">
 
@@ -42,7 +44,7 @@ export default function ResetPasswordForm() {
                         type="password"
                         placeholder="New Password"
                     />
-                    <FieldError children={fieldErrors.newPassword} />
+                    <FieldError>{fieldErrors.newPassword}</FieldError>
 
                     <Input
                         id="confirmPassword"
@@ -50,7 +52,7 @@ export default function ResetPasswordForm() {
                         type="password"
                         placeholder="Confirm Password"
                     />
-                    <FieldError children={fieldErrors.confirmPassword} />
+                    <FieldError>{fieldErrors.confirmPassword}</FieldError>
 
                     <Button className="w-full" type="submit" disabled={isSubmitting}>
                         {isSubmitting ? "Resetting Password..." : "Reset Password"}

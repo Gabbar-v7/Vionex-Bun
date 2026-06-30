@@ -1,6 +1,10 @@
 import z from "zod";
 
 export const appEnv = {
+    get isProduction() {
+        return z.string().transform((val) => val.toUpperCase() === "PRODUCTION").parse(process.env.NODE_ENV)
+    },
+
     get NEXT_PUBLIC_APP_URI() {
         return z.url().parse(process.env.NEXT_PUBLIC_APP_URI)
     },

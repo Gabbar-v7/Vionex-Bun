@@ -23,8 +23,10 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import Logo from "../logo";
-import { authClient } from "@packages/auth/client";
+import { authClient } from '@packages/auth/client';
 import { Skeleton } from "../ui/skeleton";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 type AppNavbarProps = {
     navItems: {
@@ -38,13 +40,10 @@ type AppNavbarProps = {
 export default function AppNavbar({ navItems }: AppNavbarProps) {
     const { data, isPending } = authClient.useSession();
     const [sheetOpen, setSheetOpen] = useState(false);
+    const router = useRouter()
 
     const handleSignOut = async () => {
-        try {
-            //    TODO 
-        } catch (error) {
-            console.error("Error signing out:", error);
-        }
+        authClient.signOut().then(() => router.push("/login")).catch((error) => toast(error.message))
     };
 
     return (
@@ -87,7 +86,7 @@ export default function AppNavbar({ navItems }: AppNavbarProps) {
                             <DropdownMenuSeparator />
 
                             {/* Account — redirects to /settings */}
-                            <Link href="/settings" className="no-underline">
+                            <Link href="/u/settings/account" className="no-underline">
                                 <DropdownMenuItem className="flex items-start gap-2 py-2 cursor-pointer">
                                     <UserCircle className="mt-0.5 h-3.5 w-3.5 shrink-0 text-muted-foreground" />
                                     <div className="flex flex-col gap-0.5">

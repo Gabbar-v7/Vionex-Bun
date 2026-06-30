@@ -14,6 +14,8 @@ import { Facebook, GitHub, Google } from "../icons";
 import useZodForm from "../hooks/useZodForm";
 import { zAuthSchemas } from "@packages/utilities";
 import { authClient } from "@packages/auth/client";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 export default function LoginForm() {
     const { isSubmitting, fieldErrors, handleSubmit } = useZodForm({
@@ -22,6 +24,11 @@ export default function LoginForm() {
             await authClient.signIn.email({ ...data, callbackURL: "/u/home" });
         }
     });
+
+    const { data, isPending } = authClient.useSession()
+    const router = useRouter()
+
+    useEffect(() => { if (!isPending && data?.session) router.push("/u/home") }, [isPending, data, router]);
 
     return (
         <Card className="w-full max-w-md border-border">
@@ -36,7 +43,7 @@ export default function LoginForm() {
             </CardHeader>
 
             <CardContent className="space-y-6">
-                <FieldError children={fieldErrors.global || fieldErrors.auth} />
+                <FieldError>{fieldErrors.global || fieldErrors.auth}</FieldError>
 
                 <form onSubmit={handleSubmit} className="space-y-4">
 
@@ -47,7 +54,7 @@ export default function LoginForm() {
                         placeholder="Email"
                         autoComplete="email"
                     />
-                    <FieldError children={fieldErrors.email} />
+                    <FieldError>{fieldErrors.email}</FieldError>
 
                     <Input
                         id="password"
@@ -56,7 +63,7 @@ export default function LoginForm() {
                         placeholder="Password"
                         autoComplete="current-password"
                     />
-                    <FieldError children={fieldErrors.password} />
+                    <FieldError>{fieldErrors.password}</FieldError>
 
                     <div className="flex flex-wrap items-center justify-between gap-2">
                         <Field className="w-fit" orientation="horizontal">
@@ -81,7 +88,7 @@ export default function LoginForm() {
                 </form>
 
                 <div className="text-center text-sm text-muted-foreground">
-                    Don't have an account?{" "}
+                    Don&apos;t have an account?{" "}
                     <Link
                         href="/signup"
                         className="font-medium text-foreground hover:underline"

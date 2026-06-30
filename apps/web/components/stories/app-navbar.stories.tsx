@@ -15,11 +15,6 @@ export const Default: Story = {
             { label: "Home", href: "/", icon: <Home /> },
             { label: "Search", href: "#", icon: <Search /> },
             { label: "Whishlist", href: "#", icon: <Bookmark /> },
-        ],
-        user: {
-            name: "Jhon Doe",
-            email: "jhondoe@example.com",
-            image: "https://github.com/shadcn.png"
-        }
+        ]
     }
 }

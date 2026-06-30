@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { email, z } from "zod";
 
 export const zAuthFields = {
     name: z.string().min(5).max(50),
