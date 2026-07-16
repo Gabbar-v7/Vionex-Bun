@@ -1,8 +1,12 @@
 {
   "name": "vionex-bun",
-  "module": "index.ts",
-  "type": "module",
   "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "type": "module",
+  "module": "index.ts",
   "scripts": {
     "web:dev": "bun run --cwd apps/web web:dev",
     "web:build": "bun run --cwd apps/web web:build",
@@ -11,14 +15,16 @@
     "storybook:dev": "bun run --cwd apps/web storybook:dev",
     "storybook:build": "bun run --cwd apps/web storybook:build",
     "api:dev": "bun run --cwd apps/api api:dev",
-    "api:test": "bun run --cwd apps/api web:test"
+    "lint:check": "oxlint",
+    "lint:fix": "oxlint --fix",
+    "format:check": "oxfmt --check",
+    "format": "oxfmt",
+    "test": "bun test"
   },
-  "workspaces": [
-    "apps/*",
-    "packages/*"
-  ],
   "devDependencies": {
-    "@types/bun": "latest"
+    "@types/bun": "latest",
+    "oxfmt": "^0.57.0",
+    "oxlint": "^1.72.0"
   },
   "peerDependencies": {
     "typescript": "^5"

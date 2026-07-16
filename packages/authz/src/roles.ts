@@ -1,0 +1,1 @@
+enum USER_ROLE {}

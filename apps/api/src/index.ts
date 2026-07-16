@@ -1,16 +1,19 @@
+import { treaty } from "@elysia/eden";
+import { openapi } from "@elysia/openapi";
 import { Elysia } from "elysia";
-import { openapi } from "@elysia/openapi"
+
 import { betterAuthPlugin, betterAuthView } from "./plugins/auth";
 
-export const api = new Elysia({ prefix: "/api" })
+export const apiServer = new Elysia({ prefix: "/api" })
   .use(openapi())
   .get("/", () => "Hello World")
   .all("/api/auth/*", betterAuthView)
-  .use(betterAuthPlugin)
+  .use(betterAuthPlugin);
 
+export const api = treaty(apiServer);
 
 if (require.main === module) {
-  api.listen(4800);
-  console.log()
-  console.log(`✓ Exposed: ${api.server?.url}`);
+  apiServer.listen(4800);
+  console.log();
+  console.log(`✓ Exposed: ${apiServer.server?.url}`);
 }

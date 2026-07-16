@@ -1,26 +1,24 @@
-import type { Preview } from '@storybook/nextjs-vite'
-import { appFontClasses } from "../app/fonts"
-import "../app/globals.css"
-import { useEffect } from 'react'
+import type { Preview } from "@storybook/nextjs-vite";
+
+import { useEffect } from "react";
+
+import "../src/app/globals.css";
+import { appFontClasses } from "../src/app/fonts";
 
 const preview: Preview = {
   initialGlobals: {
     backgrounds: {
-      grid: true
+      grid: true,
     },
   },
   decorators: [
     (Story) => {
       useEffect(() => {
-        document.body.classList.add(
-          ...appFontClasses
-            .split(' ')
-            .filter(Boolean)
-        )
-      }, [])
+        document.body.classList.add(...appFontClasses.split(" ").filter(Boolean));
+      }, []);
 
-      return <Story />
-    }
+      return <Story />;
+    },
   ],
   parameters: {
     controls: {
@@ -33,8 +31,8 @@ const preview: Preview = {
       // 'todo' - show a11y violations in the test UI only
       // 'error' - fail CI on a11y violations
       // 'off' - skip a11y checks entirely
-      test: 'todo'
-    }
+      test: "todo",
+    },
   },
 };
 

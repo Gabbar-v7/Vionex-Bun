@@ -1,3 +1,4 @@
-import { api } from "./src";
+import { api, apiServer } from "./src";
 
-export default api
+export default api;
+export { apiServer };

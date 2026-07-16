@@ -1,8 +1,8 @@
 {
   "name": "@packages/db",
-  "module": "index.ts",
-  "type": "module",
   "private": true,
+  "type": "module",
+  "module": "index.ts",
   "dependencies": {
     "@packages/utilities": "workspace:*",
     "drizzle-orm": "^0.45.2",

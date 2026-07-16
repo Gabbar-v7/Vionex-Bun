@@ -1,4 +1,4 @@
-import { appEnv } from '@packages/utilities';
-import { connect } from 'mongoose';
+import { appEnv } from "@packages/utilities";
+import { connect } from "mongoose";
 
-connect(appEnv.MONGO_URI).catch(err => console.log(err));
+connect(appEnv.MONGO_URI).catch((err) => console.log(err));

@@ -1,17 +1,20 @@
 {
   "name": "@apps/api",
   "version": "1.0.50",
+  "module": "src/index.js",
   "scripts": {
     "api:dev": "bun run --watch src/index.ts",
-    "api:test": "echo \"Error: no test specified\" && exit 1"
+    "api:test": "bun test"
   },
   "dependencies": {
-    "@packages/auth": "workspace:*",
+    "@elysia/eden": "^1.4.10",
     "@elysia/openapi": "^1.4.15",
+    "@packages/auth": "workspace:*",
+    "@packages/db": "workspace:*",
     "elysia": "latest"
   },
   "devDependencies": {
-    "bun-types": "latest"
-  },
-  "module": "src/index.js"
+    "bun-types": "latest",
+    "elysia": "^1.4.29"
+  }
 }

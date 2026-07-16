@@ -1,8 +1,8 @@
 {
   "name": "@packages/mail",
-  "module": "index.ts",
-  "type": "module",
   "private": true,
+  "type": "module",
+  "module": "index.ts",
   "dependencies": {
     "@packages/utilities": "workspace:*",
     "nodemailer": "^8.0.7"
