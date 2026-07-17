@@ -24,3 +24,4 @@ clean:
     find . -type d -name node_modules -prune -exec rm -rf {} +
     find . -type f -name bun.lock -delete
     rm -rf apps/web/.next
+    rm apps/web/next-env.d.ts

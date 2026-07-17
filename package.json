@@ -11,7 +11,6 @@
     "web:dev": "bun run --cwd apps/web web:dev",
     "web:build": "bun run --cwd apps/web web:build",
     "web:start": "bun run --cwd apps/web web:start",
-    "web:lint": "bun run --cwd apps/web web:lint",
     "storybook:dev": "bun run --cwd apps/web storybook:dev",
     "storybook:build": "bun run --cwd apps/web storybook:build",
     "api:dev": "bun run --cwd apps/api api:dev",
